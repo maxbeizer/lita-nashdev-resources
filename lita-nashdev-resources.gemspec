@@ -1,6 +1,6 @@
 Gem::Specification.new do |spec|
   spec.name          = "lita-nashdev-resources"
-  spec.version       = "1.0.0"
+  spec.version       = "1.0.1"
   spec.authors       = ["max beizer"]
   spec.email         = ["max.beizer@gmail.com"]
   spec.description   = "A lita bot to suggest resources for NashDev resources"
