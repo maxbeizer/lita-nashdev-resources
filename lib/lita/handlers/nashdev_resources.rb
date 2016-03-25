@@ -2,12 +2,15 @@ module Lita
   module Handlers
     class NashdevResources < Handler
       ISSUE_URL = URI.parse('https://api.github.com/repos/maxbeizer/nashdev-resources/issues').freeze
+      config :issue_token
 
       route(/resource(?: me)?\s+(.*)/, :handle_resource_request, command: true, help: {
         'resource me <link>' => 'creates an issue on the nashdev resources repo'
       })
 
       def handle_resource_request(response)
+        response.reply('You must set the RESOURCE_ISSUE_TOKEN in your lita_config.') unless !!config.issue_token
+
         resources = response.args.delete_if { |arg| arg == 'me' }
         data      = build_json_for_request(response.user, resources)
         res       = request_and_return_response(data)
@@ -26,7 +29,7 @@ module Lita
             'Content-Type'  => 'application/json',
             'User-Agent'    => 'maxbeizer',
             'Accept'        => 'application/vnd.github.v3+json',
-            'Authorization' => "token #{ENV[RESOURCE_ISSUE_TOKEN]}"
+            'Authorization' => "token #{config.issue_token}"
           })
           req.body = data
           https.request(req)

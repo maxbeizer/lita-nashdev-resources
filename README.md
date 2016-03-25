@@ -16,6 +16,13 @@ gem "lita-nashdev-resources"
 
 Requires a `RESOURCE_ISSUE_TOKEN` config var to POST to issue to repo
 
+example in `lita_config.rb` :
+```ruby
+Lita.configure do |config|
+  config.handlers.nashdev_resources.issue_token = ENV['RESOURCE_ISSUE_TOKEN']
+end
+```
+
 ## Usage
 
 ```
